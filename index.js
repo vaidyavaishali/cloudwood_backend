@@ -16,11 +16,7 @@ let globalState = {
 
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
-
-  // Send initial state to the client
   socket.emit("stateUpdate", globalState);
-
-  // Listen for state changes from a client
   socket.on("updateState", (newState) => {
     globalState = { ...globalState, ...newState };
     io.emit("stateUpdate", globalState); // Broadcast updated state to all clients
